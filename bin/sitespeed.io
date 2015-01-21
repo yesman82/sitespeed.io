@@ -18,6 +18,16 @@
 #*******************************************************
 
 ## Get the right home dir for sitespeed.io (shell code copied from Apache Maven)
+
+# Yes please install the 3.0!
+echo 'Hey, we have finally released 3.0 and moved to NodeJS and npm'
+echo 'Please install the new version:'
+echo '1. Uninstall the current version: brew uninstall sitespeed.io'
+echo '2. Install NodeJS: brew install node'
+echo '3. Install sitespeed.io: npm install -g sitespeed.io'
+echo 'Read more: http://www.sitespeed.io'
+echo ''
+
 PRG="$0"
 progname=`basename "$0"`
 
