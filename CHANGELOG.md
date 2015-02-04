@@ -3,6 +3,7 @@
 version 3.1.2 (NOT YET RELEASED)
 ------------------------
 * Include Node.js version when printing versions at the start of each run.
+* Experimental support for using a node-based crawler. Enable by passing --nodecrawler
 
 version 3.1.1 
 ------------------------
