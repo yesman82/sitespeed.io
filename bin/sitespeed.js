@@ -15,18 +15,9 @@ var Sitespeed = require('../lib/sitespeed'),
 
 var sitespeed = new Sitespeed();
 
-require('whereis')('java', function searched(err) {
-  // yep, we still need Java for the crawler & browsertime
+sitespeed.run(config, function(err) {
   if (err) {
-    winston.loggers.get('sitespeed.io').error(
-        'Could not find Java, make sure it is installed in your $PATH');
+    winston.loggers.get('sitespeed.io').error(err);
     process.exit(1);
-  } else {
-    sitespeed.run(config, function(error) {
-      if (error) {
-        winston.loggers.get('sitespeed.io').error(error);
-        process.exit(1);
-      }
-    });
   }
 });
