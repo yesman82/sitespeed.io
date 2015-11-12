@@ -1,5 +1,63 @@
 # CHANGELOG - sitespeed.io
 
+version 3.11.1 - 2015-10-27
+------------------------
+### Fixed
+* Upgraded Browsertime to new version to work with Node 4 
+
+version 3.11.0 - 2015-10-14
+------------------------
+### Fixed
+* Report the sitespeed version as full integeres to Graphite. Meaning 3.10.0 will be 3100.
+
+### Added
+* Normalize file names, use _ as separator in the domain name instead of dots #742
+
+version 3.10.0 - 2015-09-26
+------------------------
+### Fixed
+* Do not report skipped rules as failed on the Budget page. thanks @jzoldak #753
+* Grunt-sitespeedio fails the build no matter if GPSI score matches the budget thanks @laer #746
+* Fixed the ability to supress domain data beeing sent to Graphite. Using --graphiteData you now need to explicit use domains if you want to send the data (if you don't use all). That data shouldn't always be sent as it was before. (thanks @xo4n for pointing that out) #755
+
+### Added
+* Add ability to budget on a per rule basis, thanks @jzoldak #751
+* Add waitScript logic to screenshots thanks agaib @jzoldak #737
+
+version 3.9.1 - 2015-09-14
+------------------------
+### Fixed
+* Sorting by url for pages/assets on result pages now works as expected. #743
+* Be able to disable the proxy when running BrowserTime #735
+
+version 3.9.0 - 2015-08-22
+------------------------
+### Fixed
+* All args to the headless script should be passed in the right order #727 thanks @jzoldak for the PR
+* If a site uses SPDY, the sizes in the HAR from WebPageTest is set to 0, don't use it to populate the sizes #699
+
+### Added
+* Create same Graphite namespace structure for the domain url as for per-page metrics #728 thanks @JeroenVdb for the PR. Use the flag --graphiteUseNewDomainKeyStructure to turn on the new standard (will become default in 4.0).
+* You can choose to have query parameters in the Graphite key for the URL, thanks @jeremy-green for the PR #719. To use query parameters in the keys, add --graphiteUseQueryParameters to your run.
+
+version 3.8.1 - 2015-08-16
+------------------------
+### Fixed
+* Parameters passed in the wrong order for basic auth when taking screenshots, thanks @jzoldak for the PR! #691
+* Use same time out time when taking screenshots and when running yslow #725
+
+version 3.8.0 - 2015-08-10
+------------------------
+### Fixed
+* Removed faulty error logging from WPT if your location missed browser configuration. That was wrong, you actually don't need it.
+* Basic Auth was missing when testing one page (since 3.7.0). Thank you Jesse Zoldak (@jzoldak) for the PR! #717
+* You can now pass configuration files again. When you do a run, the config.json will be in your result folder. Pass it again with
+--configFile to your next run and it will be tested again, but in a new date result dir #270
+
+### Added
+* Pass request headers as JSON as complement to all headers in a file #715, thank you Devrim Tufan (@tufandevrim) for the PR.
+
+
 version 3.7.2 - 2015-07-21
 ------------------------
 ### Fixed
@@ -24,7 +82,7 @@ version 3.7.0 - 2015-07-19
 ### Fixed
 * Text fixes, thanks @atdt #690
 * New Browsertime version fixes Browser name and browser version in the HAR file #704
- 
+
 version 3.6.3 - 2015-06-26
 ------------------------
 * Finally we have a HAR Viewer! It's a modified version of Rafael Cesars https://www.npmjs.com/package/simplehar. It could still need some love and work but we think it will add some real value.

@@ -113,8 +113,8 @@ describe('util', function() {
 		});
 
 		it('A domain with a slash should return protocol.www_domain_com', function() {
-			var result = util.getGraphiteURLKey('http://www.sitespeed.io/');
-			assert.deepEqual(result, 'http.www_sitespeed_io.slash');
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/');
+			assert.deepEqual(result, 'https.www_sitespeed_io.slash');
 		});
 
 		it('Many subdomains should keep all domains in the domain part of the key', function() {
@@ -123,23 +123,33 @@ describe('util', function() {
 		});
 
 		it('The path should be separated from the domain (ending without a slash)', function() {
-			var result = util.getGraphiteURLKey('http://www.sitespeed.io/too/deep');
-			assert.deepEqual(result, 'http.www_sitespeed_io._too_deep');
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/too/deep');
+			assert.deepEqual(result, 'https.www_sitespeed_io._too_deep');
+		});
+
+		it('By default query parameter is stripped', function() {
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/too/deep?my=query');
+			assert.deepEqual(result, 'https.www_sitespeed_io._too_deep');
+		});
+
+		it('You should be able to choose if you want to have the query paremeter in the key or not', function() {
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/too/deep?my=query', true);
+			assert.deepEqual(result, 'https.www_sitespeed_io._too_deep_my_query');
 		});
 
 		it('The path should be separated from the domain (ends with a slash)', function() {
-			var result = util.getGraphiteURLKey('http://www.sitespeed.io/too/deep/');
-			assert.deepEqual(result, 'http.www_sitespeed_io._too_deep_');
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/too/deep/');
+			assert.deepEqual(result, 'https.www_sitespeed_io._too_deep_');
 		});
 
 		it('The path and files should be separated from the domain (when a file is in a folder)', function() {
-			var result = util.getGraphiteURLKey('http://www.sitespeed.io/js/my.js');
-			assert.deepEqual(result, 'http.www_sitespeed_io._js_my_js');
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/js/my.js');
+			assert.deepEqual(result, 'https.www_sitespeed_io._js_my_js');
 		});
 
 		it('The path and files should be separated from the domain (when the file is in root)', function() {
-			var result = util.getGraphiteURLKey('http://www.sitespeed.io/image.gif');
-			assert.deepEqual(result, 'http.www_sitespeed_io._image_gif');
+			var result = util.getGraphiteURLKey('https://www.sitespeed.io/image.gif');
+			assert.deepEqual(result, 'https.www_sitespeed_io._image_gif');
 		});
 
 		it('Should escape pipes that make graphite data retrieval problematic', function() {
